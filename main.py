@@ -7,7 +7,7 @@ import time
 start = time.time()
 
 img_dim = 3200 #pixel dimensions of image, more the longer to render
-hwa_lab_xy_max = 100
+hwa_lab_xy_max = 18
 multiplication_factor = img_dim/(2*hwa_lab_xy_max)
 hwa_lab_r = 0.5
 syn_r = multiplication_factor*hwa_lab_r
@@ -17,18 +17,10 @@ bw_data = np.zeros((img_dim,img_dim), dtype=np.uint8)
 #L indicates mode: (8-bit pixels, black and white)
 #https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-modes
 
-myFile = np.genfromtxt('149.txt', delimiter=' ')
-cells = myFile[:,[3,4,5,6,7,8]]
-cells = cells[np.where(cells[:,2] <= .6)]
-cells = cells[np.where(cells[:,5] <= .6)]
-#
-# check = cells[:,[2,5]] <= .6
-# fix = check[:,0]+check[:,1]
-# for i in range(np.size(cells)[0]):
-#     if(cells)
-cells=cells[:,[0,1,3,4]]
-
+cells = np.genfromtxt('test_e1e2.txt', delimiter=' ')
+print(cells)
 cells = (cells*multiplication_factor)+img_dim/2
+print(cells)
 num_cells = np.shape(cells)[0]
 for i in range(1,num_cells):
     print(i)
