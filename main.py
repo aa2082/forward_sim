@@ -17,7 +17,7 @@ bw_data = np.zeros((img_dim,img_dim), dtype=np.uint8)
 #L indicates mode: (8-bit pixels, black and white)
 #https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-modes
 
-cells = np.genfromtxt('test_e1e2.txt', delimiter=' ')
+cells = np.genfromtxt('test_e1e2.txt', delimiter='   ')
 print(cells)
 cells = (cells*multiplication_factor)+img_dim/2
 print(cells)
