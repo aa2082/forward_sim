@@ -6,11 +6,12 @@ from cell import make_cell
 import time
 start = time.time()
 
-img_dim = 3200 #pixel dimensions of image, more the longer to render
-hwa_lab_xy_max = 18
-multiplication_factor = img_dim/(2*hwa_lab_xy_max)
-hwa_lab_r = 0.5
-syn_r = multiplication_factor*hwa_lab_r
+img_dim = 2000 #pixel dimensions of image, more the longer to render
+xy_max = 20
+multiplication_factor = img_dim/(xy_max*2)
+print(multiplication_factor, " pixels/µm")
+cell_r = .5
+syn_r = multiplication_factor*cell_r
 #np array that will be image, initially all set to 0 ie black
 bw_data = np.zeros((img_dim,img_dim), dtype=np.uint8)
 
@@ -18,15 +19,15 @@ bw_data = np.zeros((img_dim,img_dim), dtype=np.uint8)
 #https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-modes
 
 cells = np.genfromtxt('test_e1e2.txt', delimiter='   ')
-print(cells)
 cells = (cells*multiplication_factor)+img_dim/2
-print(cells)
 num_cells = np.shape(cells)[0]
 for i in range(1,num_cells):
-    print(i)
+    percent = (int)((i/num_cells)*100)
+    print(percent,"%")
     make_cell(bw_data,(img_dim,img_dim),cells[i,:],syn_r)
 bw = Image.fromarray(bw_data, 'L') #make image from array
 bw.show() #show image
 
 end = time.time()
+print(multiplication_factor, " pixels/µm")
 print("Elapsed (after compilation) = %s" % (end - start))
